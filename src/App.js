@@ -1,23 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
-
+import React, { useState, useEffect } from "react";
+import "./App.css";
+import Editor from "./component/editor";
+import Output from "./component/output";
 function App() {
+  const [code, setCode] = useState("");
+  const [runCode, setRunCode] = useState("");
+  function onChange(value) {
+    setCode(value);
+  }
+  function runEditorCode() {
+    setRunCode(code);
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="container">
+        <div className="editor">
+        <button className="runButton" onClick={runEditorCode}>
+        Run >>{" "}
+      </button>
+          <Editor onChange={onChange} />
+        </div>
+        <div className="output">
+          <Output code={runCode} />
+        </div>
+      </div>
     </div>
   );
 }
